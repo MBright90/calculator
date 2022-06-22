@@ -1,0 +1,65 @@
+/* Resetting all margin and padding */
+
+body, * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: #FF165D;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+body {
+    background-color: #F6F7D7;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Share Tech Mono', monospace;
+    justify-content: centre;
+    gap: 5%;
+    align-items: centre; 
+    height: 100vh;
+    padding: 2.5% 30%;
+}
+
+/* overall styling */
+
+#screen {
+    background-color: #000000;
+    border-radius: 15px;
+    color: #FFFFFF;
+    flex-shrink: 1;
+    font-family: 'VT323', monospace;
+    font-size: 7.5vw;
+    padding: 5%;
+}
+
+.calculator-body {
+    background-color: #3EC1D3;
+    border-radius: 15px;
+    box-shadow: 7.5px 10px #000000;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
+    gap: 2%;
+    padding: 5%;
+    height: 100%;
+    width: 100%;
+}
+
+.calculator-row {
+    display: flex;
+    flex: 1 1 0;
+    gap: 5%;
+    justify-content: space-evenly;
+}
+
+button {
+    border-radius: 5px;
+    font-size: 4.5vw;
+    height: 12.5vh;
+    width: 20%;
+}
