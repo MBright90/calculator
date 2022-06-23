@@ -25,6 +25,12 @@ body {
     padding: 2.5% 30%;
 }
 
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /* overall styling */
 
 #screen {
@@ -34,7 +40,9 @@ body {
     flex-shrink: 1;
     font-family: 'VT323', monospace;
     font-size: 7.5vw;
+    height: 20vh;
     padding: 5%;
+    text-align: right;
 }
 
 .calculator-body {
@@ -62,4 +70,5 @@ button {
     font-size: 4.5vw;
     height: 12.5vh;
     width: 20%;
+    user-select: none;
 }
