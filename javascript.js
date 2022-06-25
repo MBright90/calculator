@@ -90,15 +90,22 @@ function calculateAnswer() {
     let answer = 0;
     if (screen.dataset.operation == 'plus') {
         answer = addNumbers();
+        console.log(answer);
     };
+    displayAnswer(answer);
+};
 
-    if (toString(answer).length > 10) {
+function displayAnswer(answer) {
+    if (answer.toString().length > 10) {
         screen.textContent = 'TO LARGE!'
+        screen.dataset.previous = '';
     } else {
         screen.textContent = answer;
         screen.dataset.previous = answer;
-        screen.dataset.toClear = 'true'
     };
+
+    // Adding check for check next click.
+    screen.dataset.toClear = 'true';
 };
 
 initNumericButtons();
