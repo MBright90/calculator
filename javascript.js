@@ -2,51 +2,35 @@ const screen = document.querySelector('#screen');
 
 // Initialize button variables //
 const numButtons = document.querySelectorAll('.numerical-btn');
+const opButtons = document.querySelectorAll('.operation-btn');
 
-function initNumericButtons() {
-    numButtons.forEach(numButton => {
-        numButton.addEventListener('click', () => {
-            if (screen.dataset.toClear == 'true') {
-                screen.textContent = 0;
-                screen.dataset.toClear = 'false';
-            };
-            displayNewChar(numButton.dataset.numValue);
-        });
+numButtons.forEach(numButton => {
+    numButton.addEventListener('click', () => {
+        if (screen.dataset.toClear == 'true') {
+            screen.textContent = 0;
+            screen.dataset.toClear = 'false';
+        };
+        displayNewChar(numButton.dataset.numValue);
     });
-};
+});
+
+opButtons.forEach(opButton => {
+    opButton.addEventListener('click', () => {
+        if (screen.dataset.operation) calculateAnswer();
+        screen.dataset.operation = opButton.id.split('-')[0];
+        storeNumber();
+    });
+});
 
 const clearBtn = document.querySelector('#clear-btn');
 clearBtn.addEventListener('click', clearCalculator)
-    
-
-const plusBtn = document.querySelector('#plus-btn');
-plusBtn.addEventListener('click', () => {
-    if (screen.dataset.operation) calculateAnswer();
-    screen.dataset.operation = 'plus';
-    storeNumber();
-    screen.dataset.toClear = 'true';
-});
-
-const minusBtn = document.querySelector('#minus-btn');
-minusBtn.addEventListener('click', () => {
-    console.log('minus');
-});
-
-const multiplyBtn = document.querySelector('#multiply-btn');
-multiplyBtn.addEventListener('click', () => {
-    console.log('multiply');
-});
-
-const divideBtn = document.querySelector('#divide-btn');
-divideBtn.addEventListener('click', () => {
-    console.log('divide');
-});
 
 const equalsBtn = document.querySelector('#equals-btn');
 equalsBtn.addEventListener('click', calculateAnswer);
 
 function storeNumber() {
     screen.dataset.previous = screen.textContent;
+    screen.dataset.toClear = 'true';
 };
 
 
@@ -59,11 +43,24 @@ function displayNewChar(newCharacter) {
 
     // Check characters do not pass length of screen //
     if (currentText.length <= 10) {
-        console.log(currentText.length);
         screen.textContent = `${currentText}${newCharacter}`;
     } else {
         alert('Maximum character length reached')
     };
+};
+
+function displayAnswer(answer) {
+    if (answer.toString().length > 10) {
+        screen.textContent = 'ERROR'
+        screen.dataset.previous = '';
+    } else {
+        screen.textContent = answer;
+        screen.dataset.previous = answer;
+    };
+
+    // Adding check for check next click.
+    screen.dataset.operation = '';
+    screen.dataset.toClear = 'true';
 };
 
 function clearCalculator() {
@@ -76,36 +73,48 @@ function clearCalculator() {
 // Mathematical functions //
 
 function addNumbers() {
-    console.log(`${screen.dataset.previous} ${screen.textContent}`)
     return parseInt(screen.dataset.previous) + parseInt(screen.textContent);
 };
 
-// function subtractNumbers() {};
+function subtractNumbers() {
+    return parseInt(screen.dataset.previous) - parseInt(screen.textContent);
+};
 
-// function multiplyNumbers() {};
+function multiplyNumbers() {
+    return parseInt(screen.dataset.previous) * parseInt(screen.textContent);
+};
 
-// function divideNumbers() {};
+function divideNumbers() {
+    parseInt(screen.dataset.previous) / parseInt(screen.textContent);
+};
 
 function calculateAnswer() {
     let answer = 0;
-    if (screen.dataset.operation == 'plus') {
+    if (!screen.dataset.operation) {
+        alert('Please select an operation.');
+        return;
+    } else if (screen.dataset.operation == 'plus') {
         answer = addNumbers();
-        console.log(answer);
+    } else if (screen.dataset.operation == 'minus') {
+        answer = subtractNumbers();
+    } else if (screen.dataset.operation == 'multiply') {
+        answer = multiplyNumbers();
+    } else if (screen.dataset.operation == 'divide') {
+        answer = divideNumbers();
     };
     displayAnswer(answer);
 };
 
-function displayAnswer(answer) {
-    if (answer.toString().length > 10) {
-        screen.textContent = 'TO LARGE!'
-        screen.dataset.previous = '';
-    } else {
-        screen.textContent = answer;
-        screen.dataset.previous = answer;
-    };
+// Keyboard functionality
 
-    // Adding check for check next click.
-    screen.dataset.toClear = 'true';
-};
+const allButtons = document.querySelectorAll('button');
+
+window.addEventListener('keydown', e => {
+    allButtons.forEach(button => {
+        if (e.code == button.dataset.keycode) button.click(); 
+    })
+});
+
 
 initNumericButtons();
+initOperationButtons();
