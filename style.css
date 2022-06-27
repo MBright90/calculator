@@ -66,9 +66,45 @@ footer {
 }
 
 button {
-    border-radius: 5px;
+    border-radius: 10px;
     font-size: 4.5vw;
     height: 12.5vh;
     width: 20%;
     user-select: none;
+    transition: all .2s;
+    -webkit-transition: all .2s;
+}
+
+.function-btn:hover,
+.numerical-btn:hover,
+.operation-btn:hover {
+    color: #F6F7D7;
+    transform: translate(0, -5px);
+    transition: all .2s;
+    -webkit-transition: all .2s;
+}
+
+.function-btn.press,
+.numerical-btn.press ,
+.operation-btn.press {
+    border: 7px solid #F6F7D7;
+    color: #F6F7D7;
+    transform: scale(1.1);
+    transition: all .2s;
+    -webkit-transition: all .2s;
+}
+
+.function-btn:hover,
+.function-btn.press {
+    background-color: #ff9f29;
+}
+
+.numerical-btn:hover,
+.numerical-btn.press {
+    background-color: #000000;
+}
+
+.operation-btn:hover,
+.operation-btn.press {
+    background-color: #A10035;
 }
