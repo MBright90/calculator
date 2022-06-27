@@ -18,9 +18,9 @@ body {
     display: flex;
     flex-direction: column;
     font-family: 'Share Tech Mono', monospace;
-    justify-content: centre;
+    justify-content: center;
     gap: 5%;
-    align-items: centre; 
+    align-items: center; 
     height: 100vh;
     padding: 2.5% 30%;
 }
@@ -39,7 +39,7 @@ footer {
     color: #FFFFFF;
     flex-shrink: 1;
     font-family: 'VT323', monospace;
-    font-size: 7.5vw;
+    font-size: 12.5vh;
     height: 20vh;
     padding: 5%;
     text-align: right;
@@ -52,10 +52,9 @@ footer {
     display: flex;
     flex-direction: column;
     flex: 1 1 0;
-    gap: 2%;
-    padding: 5%;
-    height: 100%;
-    width: 100%;
+    gap: 20px;
+    padding: 20px;
+    width: 600px;
 }
 
 .calculator-row {
@@ -67,7 +66,7 @@ footer {
 
 button {
     border-radius: 10px;
-    font-size: 4.5vw;
+    font-size: 4.5rem;
     height: 12.5vh;
     width: 20%;
     user-select: none;
