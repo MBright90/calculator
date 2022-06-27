@@ -16,7 +16,7 @@ numButtons.forEach(numButton => {
 
 opButtons.forEach(opButton => {
     opButton.addEventListener('click', () => {
-        if (screen.dataset.operation) calculateAnswer();
+        if (screen.dataset.operation) return;
         screen.dataset.operation = opButton.id.split('-')[0];
         storeNumber();
     });
@@ -109,9 +109,18 @@ function calculateAnswer() {
 // Keyboard functionality
 
 const allButtons = document.querySelectorAll('button');
+allButtons.forEach(key => key.addEventListener('transitionend', removeTransition));
 
 window.addEventListener('keydown', e => {
     allButtons.forEach(button => {
-        if (e.code == button.dataset.keycode) button.click(); 
-    })
+        if (e.code == button.dataset.keycode) {
+            button.click();
+            button.classList.add('press');
+        };
+    });
 });
+
+function removeTransition(e) {
+    if (e.propertyName != 'transform') return;
+    this.classList.remove('press');
+};
