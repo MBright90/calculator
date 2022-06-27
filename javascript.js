@@ -1,14 +1,18 @@
 const screen = document.querySelector('#screen');
 
+let previousNum = '';
+let currentOperation = '';
+let toClear = false;
+
 // Initialize button variables //
 const numButtons = document.querySelectorAll('.numerical-btn');
 const opButtons = document.querySelectorAll('.operation-btn');
 
 numButtons.forEach(numButton => {
     numButton.addEventListener('click', () => {
-        if (screen.dataset.toClear == 'true') {
+        if (toClear == true) {
             screen.textContent = 0;
-            screen.dataset.toClear = 'false';
+            toClear = false;
         };
         displayNewChar(numButton.dataset.numValue);
     });
@@ -16,8 +20,8 @@ numButtons.forEach(numButton => {
 
 opButtons.forEach(opButton => {
     opButton.addEventListener('click', () => {
-        if (screen.dataset.operation) return;
-        screen.dataset.operation = opButton.id.split('-')[0];
+        if (currentOperation) return;
+        currentOperation = opButton.id.split('-')[0];
         storeNumber();
     });
 });
@@ -29,8 +33,8 @@ const equalsBtn = document.querySelector('#equals-btn');
 equalsBtn.addEventListener('click', calculateAnswer);
 
 function storeNumber() {
-    screen.dataset.previous = screen.textContent;
-    screen.dataset.toClear = 'true';
+    previousNum = screen.textContent;
+    toClear = true;
 };
 
 
@@ -52,55 +56,55 @@ function displayNewChar(newCharacter) {
 function displayAnswer(answer) {
     if (answer.toString().length > 10) {
         screen.textContent = 'ERROR'
-        screen.dataset.previous = '';
+        previousNum = '';
     } else {
         screen.textContent = answer;
-        screen.dataset.previous = answer;
+        previousNum = answer;
     };
 
     // Adding check for check next click.
-    screen.dataset.operation = '';
-    screen.dataset.toClear = 'true';
+    currentOperation = '';
+    toClear = true;
 };
 
 function clearCalculator() {
     screen.textContent = 0;
-    screen.dataset.previous = '';
-    screen.dataset.operation = '';
+    previousNum = '';
+    currentOperation = '';
 };
 
 
 // Mathematical functions //
 
 function addNumbers() {
-    return parseInt(screen.dataset.previous) + parseInt(screen.textContent);
+    return parseInt(previousNum) + parseInt(screen.textContent);
 };
 
 function subtractNumbers() {
-    return parseInt(screen.dataset.previous) - parseInt(screen.textContent);
+    return parseInt(previousNum) - parseInt(screen.textContent);
 };
 
 function multiplyNumbers() {
-    return parseInt(screen.dataset.previous) * parseInt(screen.textContent);
+    return parseInt(previousNum) * parseInt(screen.textContent);
 };
 
 function divideNumbers() {
     if (screen.textContent == 0) return 'ERROR';
-    return parseInt(screen.dataset.previous) / parseInt(screen.textContent);
+    return parseInt(previousNum) / parseInt(screen.textContent);
 };
 
 function calculateAnswer() {
     let answer = 0;
-    if (!screen.dataset.operation) {
+    if (!currentOperation) {
         alert('Please select an operation.');
         return;
-    } else if (screen.dataset.operation == 'plus') {
+    } else if (currentOperation == 'plus') {
         answer = addNumbers();
-    } else if (screen.dataset.operation == 'minus') {
+    } else if (currentOperation == 'minus') {
         answer = subtractNumbers();
-    } else if (screen.dataset.operation == 'multiply') {
+    } else if (currentOperation == 'multiply') {
         answer = multiplyNumbers();
-    } else if (screen.dataset.operation == 'divide') {
+    } else if (currentOperation == 'divide') {
         answer = divideNumbers();
     };
     displayAnswer(answer);
