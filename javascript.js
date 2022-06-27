@@ -85,7 +85,8 @@ function multiplyNumbers() {
 };
 
 function divideNumbers() {
-    parseInt(screen.dataset.previous) / parseInt(screen.textContent);
+    if (screen.textContent == 0) return 'ERROR';
+    return parseInt(screen.dataset.previous) / parseInt(screen.textContent);
 };
 
 function calculateAnswer() {
@@ -114,7 +115,3 @@ window.addEventListener('keydown', e => {
         if (e.code == button.dataset.keycode) button.click(); 
     })
 });
-
-
-initNumericButtons();
-initOperationButtons();
