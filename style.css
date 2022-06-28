@@ -11,6 +11,7 @@ a {
     color: #FF165D;
     font-size: 1.5rem;
     text-align: center;
+    user-select: none;
 }
 
 body {
@@ -51,7 +52,7 @@ footer {
     box-shadow: 7.5px 10px #000000;
     display: flex;
     flex-direction: column;
-    flex: 1 1 0;
+    flex: 1 1 auto;
     gap: 20px;
     padding: 20px;
     width: 600px;
@@ -107,3 +108,22 @@ button {
 .operation-btn.press {
     background-color: #A10035;
 }
+
+@media only screen and (max-width: 960px) {
+    body {
+      background-color: #3EC1D3;
+    }
+
+    button {
+        flex: 1 1 auto;
+    }
+
+    footer {
+        margin-top: -50px;
+        padding-bottom: 20px;
+    }
+
+    .calculator-body {
+        box-shadow: none;
+    }
+  }
